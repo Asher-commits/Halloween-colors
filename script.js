@@ -1,38 +1,51 @@
-let colors = ["red", "purple", "yellow", "black", "orange"];
+let theme = {
+ colors : ["red", "purple", "yellow", "black", "orange"], 
+ emojis: ["🦇", "🕷️", "🎃", "👻", "🧛"]
+}
 
-let emojis = ["🦇", "🕷️", "🎃", "👻", "🧛"];
-
+// Accessing all that's required
 
 const button = document.getElementById("button");
 
-const faces = document.getElementById("faces");
+const clicked = document.getElementById("clicked");
+
+const emoji = document.getElementById("emoji");
+
+const resetBtn = document.getElementById("resetBtn");
+
+let clickTimes = 0;
 
 
-// To change background color when button is clicked
+// Keep track of click times
 
-function changeColor(){
+function clickCount(){
     button.addEventListener("click", function(){
-        const color = Math.floor(Math.random() * colors.length);
-        const click = colors[color];
-        document.body.style.backgroundColor = click;
-
-    })
+        clickTimes++
+        clicked.textContent = `You clicked the button: ${clickTimes} times`;   
+        
+    });
 }
 
-changeColor()
+clickCount();
 
 
-// To change emoji when button is clicked
+// Change theme and also show reset button
 
-function changeEmoji(){
-    button.addEventListener("click", function(){
-        const randomEmoji = Math.floor(Math.random() * emojis.length);
-        const emoji = emojis[randomEmoji];
-        faces.textContent = emoji;
-})
+button.addEventListener("click", function(){
+    resetBtn.style.display = "block";
+    let colorChanger = Math.floor(Math.random() * theme.colors.length);
+    document.body.style.backgroundColor = theme.colors[colorChanger];
+    
+    let emojiChanger = Math.floor(Math.random() * theme.emojis.length);
+    emoji.textContent = theme.emojis[emojiChanger];
 
-}
+});
 
-changeEmoji()
+
+// Reset everything and back to beginning
+
+resetBtn.addEventListener("click", function(){
+    location.reload();
+});
 
 
